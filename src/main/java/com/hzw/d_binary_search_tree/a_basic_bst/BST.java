@@ -1,4 +1,4 @@
-package com.hzw.d_binary_search_tree;
+package com.hzw.d_binary_search_tree.a_basic_bst;
 
 /**
  * 二分搜索树，左节点小于父节点小于右节点，
@@ -75,6 +75,9 @@ public class BST<E extends Comparable<E>> {
         }
     }
 
+    /**
+     * 前序遍历
+     */
     public void preOrder(){
         preOrder(root);
     }

@@ -1,8 +1,10 @@
-package com.hzw.d_binary_search_tree;
+package com.hzw.d_binary_search_tree.b_depth_traverse_bst;
+
+import java.util.Stack;
 
 /**
- * 二分搜索树，左节点小于父节点小于右节点，
- * 需要二分搜索树中的元素具有可比较性
+ * 二分搜索树的 深度度优先遍历：前序/中序/后序 遍历，深度优先遍历即进入到树结构的最深即叶子节点向根节点进行遍历
+ * 使用非递归的方式实现，前序遍历，其实递归就是借助系统栈完成的调用，这里使用非递归的方式遍历也是借助栈这种数据结构来做
  */
 public class BST2<E extends Comparable<E>> {
 
@@ -24,28 +26,38 @@ public class BST2<E extends Comparable<E>> {
         size = 0;
     }
 
-
     //向二分搜索树中添加元素
     public void add(E e){
+        if (root == null){
+            root = new Node(e);
+            size++;
+            return;
+        }
 
-
-        root = add(root,e);
+        add(root,e);
     }
     //递归添加元素
-    private Node add(Node node, E e) {
+    private void add(Node node, E e) {
         //递归的出口
         if (node == null ){
+            node = new Node(e);
             size++;
-           return new Node(e);
+        }else if (node.left == null&& node.e.compareTo(e)>0){
+            node.left = new Node(e);
+            size++;
+        }else if (node.right == null&&node.e.compareTo(e)<0){
+            node.right = new Node(e);
+            size++;
         }
 
         //递归方法的进一步拆解
-        if (node.e.compareTo(e)<0){
-            node.right = add(node.right,e);
-        }else if (node.e.compareTo(e)>0){
-            node.left = add(node.left,e);
+        if (node.e != null&&node.e.compareTo(e)<0){
+            add(node.right,e);
+        }else if (node.e != null&&node.e.compareTo(e)>0){
+            add(node.left,e);
+        }else{
+            //node.e.compareTo(e)==0;  //不需要处理
         }
-        return node;
     }
 
     public boolean contains(E e){
@@ -65,18 +77,6 @@ public class BST2<E extends Comparable<E>> {
         }
     }
 
-    public void preOrder(){
-        preOrder(root);
-    }
-
-    private void preOrder(Node node) {
-        if (node == null){
-            return;
-        }
-        System.out.println(node.e);
-        preOrder(node.left);
-        preOrder(node.right);
-    }
 
     @Override
     public String toString() {
@@ -104,4 +104,34 @@ public class BST2<E extends Comparable<E>> {
         }
         return ret;
     }
+
+
+    /**
+     * 前序遍历，
+     */
+    public void preOrder(){
+        if (size==0){
+            return;
+        }
+        Stack<Node> stack = new Stack<Node>();
+        stack.push(root);
+        while (!stack.isEmpty()){
+            Node node = stack.pop();
+            System.out.println(node.e);
+            //由于栈先进后出，这里先将右子树压入栈，保证右子树后于左子树出栈
+            if (node.right != null){
+                stack.push(node.right);
+            }
+            if (node.left != null){
+                stack.push(node.left);
+            }
+
+        }
+
+    }
+
+
+
+
+
 }

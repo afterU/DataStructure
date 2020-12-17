@@ -1,4 +1,6 @@
-package com.hzw.d_binary_search_tree;
+package com.hzw.d_binary_search_tree.a_basic_bst;
+
+import com.hzw.d_binary_search_tree.a_basic_bst.BST;
 
 public class Test {
     public static void main(String[] args) {
