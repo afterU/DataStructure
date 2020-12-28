@@ -121,15 +121,21 @@ public class LinkedList<E> {
     }
 
     public void removeElement(E e){
+
         Node pre = dummyHead;
-        for (int i = 0; i < size; i++) {
-            if (pre.e.equals(e)){
-                Node node = pre.next;
-                pre.next = node.next;
-                size--;
-                node = null;
-                return;
+
+        while (pre.next != null){
+            if (e.equals(pre.next.e)){
+                break;
             }
+            pre = pre.next;
+        }
+        if (pre.next != null){
+          Node delNode = pre.next;
+          pre.next = delNode.next;
+
+          delNode.next = null;
+          size--;
 
         }
     }

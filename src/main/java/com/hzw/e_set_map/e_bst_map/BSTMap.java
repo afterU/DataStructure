@@ -44,7 +44,7 @@ public class BSTMap<K extends Comparable<K>,V> implements Map<K,V> {
     }
     if (node.key.compareTo(key)>0){
       node.left = add(node.left,key,value);
-    }else if (node.key.compareTo(key)>0){
+    }else if (node.key.compareTo(key)<0){
       node.right = add(node.right,key,value);
     }
     return node;
